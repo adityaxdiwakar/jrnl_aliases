@@ -1,0 +1,21 @@
+todos () {
+    v=$(jrnl -on today @todos 2> /dev/null | wc -l)
+    if [ "$v" -eq 0 ]
+    then
+        jrnl --template ~/jrnl/template.todo
+    else
+        jrnl -on today @todos --edit
+    fi
+}
+
+todotmrw () {
+    v=$(jrnl -on tomorrow @todos | wc -l)
+    if [ "$v" -eq 0 ]
+    then
+        jrnl "tomorrow: $(cat ~/jrnl/template.todo)"
+        jrnl -on tomorrow @todos --edit
+    fi
+    jrnl -on tomorrow @todos --edit
+}
+
+alias today="jrnl -on today @todos"
