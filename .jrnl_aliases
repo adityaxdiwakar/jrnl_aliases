@@ -3,9 +3,9 @@ todos () {
     if [ "$v" -eq 0 ]
     then
         jrnl --template ~/jrnl/template.todo
-    else
-        jrnl -on today @todos --edit
     fi
+    jrnl -on today @todos --edit
+    /Users/aditya/jrnl/scripts/commit.sh
 }
 
 todotmrw () {
@@ -13,9 +13,14 @@ todotmrw () {
     if [ "$v" -eq 0 ]
     then
         jrnl "tomorrow: $(cat ~/jrnl/template.todo)"
-        jrnl -on tomorrow @todos --edit
     fi
     jrnl -on tomorrow @todos --edit
+    /Users/aditya/jrnl/scripts/commit.sh
 }
 
 alias today="jrnl -on today @todos"
+
+jrnl() {
+    command jrnl "$@"
+    /Users/aditya/jrnl/scripts/commit.sh
+}
